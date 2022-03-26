@@ -122,7 +122,25 @@ int main()
 			указателей (инкремент, декремент, сложение указателя с числом и
 			т.д.) для продвижения по массивам, а также оператор разыменования.
 			*/
+			srand(time(nullptr));
+			const int size{ 5 };
 
+			int arr1[size]{ 1,2,3,4,5 };
+			int* ptrArr1 = arr1;
+
+			int arr2[size]{ 0 };
+			int* ptrArr2 = arr2;
+
+			ptrArr2 += size - 1;
+			for (int i = size; i > 0; i--, ptrArr1++, ptrArr2--)
+			{
+				*(ptrArr2) = *(ptrArr1);
+			}
+			ptrArr2 = ptrArr2 + 1; // Так как последняя итерация цикла вывела за начало массива указатель.
+			for (int i = 0; i < size; i++)
+			{
+				cout << *(ptrArr2 + i) << '\t';
+			}
 		}
 		break;
 
