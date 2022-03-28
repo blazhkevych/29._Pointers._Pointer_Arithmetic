@@ -122,7 +122,6 @@ int main()
 			указателей (инкремент, декремент, сложение указателя с числом и
 			т.д.) для продвижения по массивам, а также оператор разыменования.
 			*/
-			srand(time(nullptr));
 			const int size{ 5 };
 
 			int arr1[size]{ 1,2,3,4,5 };
@@ -153,7 +152,35 @@ int main()
 			указателя с числом и т.д.) для продвижения по массиву, а также
 			оператор разыменования.
 			*/
+			const int size{ 10 };
+			int arr1[size]{ 8,5,2,4,5,6,1,9,3,7 };
+			int* ptrArr1 = arr1;
 
+			int min = *(ptrArr1);
+			int* ptrMin = &min;
+
+			int max = *(ptrArr1);
+			int* ptrMax = &max;
+
+			for (int i = 0; i < size; i++) // Вывод массива на экран;
+			{
+				cout << *(ptrArr1 + i) << ' ';
+			}
+			cout << endl;
+
+			for (int i = 0; i < size; i++, ptrArr1++)
+			{
+				if (*(ptrMin) > *(ptrArr1))
+				{
+					*(ptrMin) = *(ptrArr1);
+				}
+				if (*(ptrMax) < *(ptrArr1))
+				{
+					*(ptrMax) = *(ptrArr1);
+				}
+			}
+			cout << "Min = " << *(ptrMin) << endl;
+			cout << "Max = " << *(ptrMax) << endl;
 		}
 		break;
 
@@ -167,6 +194,55 @@ int main()
 			декремент, сложение указателя с числом и т.д.) для продвижения по
 			массиву, а также оператор разыменования.
 			*/
+			const int size{ 10 };
+			int arr[size]{ 0,1,2,3,4,5,6,7,8,9 };
+			int* ptrArr = arr;
+			cout << "How many bits to perform a cyclic shift? :" << endl;
+			int n{ 0 };
+			int* ptrN = &n;
+			cin >> *(ptrN);
+
+			cout << "Select shift direction:" << endl
+				<< "1 <--- cyclic shift to the left;" << endl
+				<< "2 ---> cyclic shift to the right;" << endl;
+			int choice{ 0 };
+			int* ptrChoice = &choice;
+			cin >> *(ptrChoice);
+
+			enum UserChoice
+			{
+				cyclic_shift_to_the_left = 1,
+				cyclic_shift_to_the_right = 2
+			};
+
+			switch (*(ptrChoice))
+			{
+			case cyclic_shift_to_the_left: // Сдвиг влево.
+				for (int i = 0; i < *(ptrN); i++) // Количество сдвигов (n), по 1-му елементу влево.
+				{
+					int temp = *(ptrArr); // Сохраняем 1-вый (0-вой индекс в массиве).
+					for (int j = 0; j < size - 1; j++) // Итерации идут с начала массива в конец.
+						*(ptrArr + j) = *(ptrArr + j + 1); // Следующий елемент в предыдущую ячейку.
+					*(ptrArr + size - 1) = temp; // Записываем сохраненный 1-вый (0-вой индекс в массиве) в  последний (9-тый индекс в массиве)
+				}
+				break;
+
+			case cyclic_shift_to_the_right: // Сдвиг вправо.
+				for (int i = 0; i < *(ptrN); i++) // Количество сдвигов (n), по 1-му елементу вправо.
+				{
+					int temp = *(ptrArr + size - 1); // Сохраняем 10-тый (9-тый индекс в массиве).
+					for (int j = size - 1; j > 0; j--) // Итерации идут с конца массива в начало.
+						*(ptrArr + j) = *(ptrArr + j - 1); // Следующий елемент равен предыдущему.
+					*(ptrArr + 0) = temp; // Записываем сохраненный 10-тый (9-тый индекс в массиве) в первый (0-ой индекс в массиве)
+				}
+				break;
+			}
+
+			for (int i = 0; i < size; i++) // Выводим 1 массив.
+			{
+				cout << *(ptrArr + i) << "\t";
+			}
+			cout << endl;
 
 		}
 		break;
